@@ -11,12 +11,16 @@ $bg-color: red;
 .th {
   font-size: 13px;
   position: sticky;
+  z-index: 99;
   top: 0;
   background-color: var(--mantine-color-white);
 }
 
 .tr {
   border-bottom-color: var(--mantine-color-gray-2);
+}
+
+.rowOrder {
   position: relative;
 
   &::after {

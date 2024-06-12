@@ -2,7 +2,7 @@
 
 import { Decimals, Depth } from "@/modules/btc/types";
 import { ActionIcon, Group, Image, Input, Select, Skeleton, Stack, Text, Title, Tooltip, useMantineTheme } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { OrderBookTable } from "./order-book-table";
 
 export const OrderBoolSection = () => {
@@ -15,21 +15,22 @@ export const OrderBoolSection = () => {
   const [isIncreased, setIsIncreased] = useState(false);
   const theme = useMantineTheme();
 
-  const maxBidQuantity = bids.reduce((max, bid) => Math.max(max, bid[1]), 0);
-  const maxAskQuantity = asks.reduce((max, ask) => Math.max(max, ask[1]), 0);
-  const maxQuantity = Math.max(maxBidQuantity, maxAskQuantity);
+  const maxQuantity = useMemo(() => {
+    const maxBidQuantity = bids.reduce((max, bid) => Math.max(max, bid[1]), 0);
+    const maxAskQuantity = asks.reduce((max, ask) => Math.max(max, ask[1]), 0);
+    return Math.max(maxBidQuantity, maxAskQuantity);
+  }, [bids, asks]);
 
-  const fetchOrderBook = async () => {
+  const fetchOrderBook = useCallback(async () => {
     try {
-      const res = await (await fetch(`/api/order-book?limit=${selectedDepth}`)).json();
-      // console.log(res)
+      const res = await fetch(`/api/order-book?limit=${selectedDepth}`).then((res) => res.json());
       setBids(res.bids);
       setAsks(res.asks);
       setSpread(res.asks[0][0] - res.bids[0][0]);
     } catch (error) {
       console.error('Error fetching order book:', error);
     }
-  }
+  }, [selectedDepth]);
 
   useEffect(() => {
     fetchOrderBook();

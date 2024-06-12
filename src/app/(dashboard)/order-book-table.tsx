@@ -52,6 +52,7 @@ export const OrderBookTable: FC<OrderBookTableProps> = ({ title, data, decimals 
                   // console.log(maxQuantity)
                   const calculatedPercentage = item[1] / maxQuantity * 100;
                   return <Table.Tr
+                    className={classes.rowOrder}
                     key={index}
                     style={{ '--percentage': `${calculatedPercentage}%`, '--bg-color': title === 'Buy order (Bid prices)' ? 'rgba(56, 184, 0, 0.2)' : 'rgba(255, 0, 0, 0.2)' }}
                   >
