@@ -1,0 +1,44 @@
+$percentage: 0%;
+$bg-color: red;
+
+//TABLE
+.headTable {
+  tr {
+    border-bottom: none;
+  }
+}
+
+.th {
+  font-size: 13px;
+  position: sticky;
+  top: 0;
+  background-color: var(--mantine-color-white);
+}
+
+.tr {
+  border-bottom-color: var(--mantine-color-gray-2);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: var(--percentage);
+    background-color: var(--bg-color);
+  }
+}
+
+.td {
+  font-size: 13px;
+}
+
+.table {
+  width: 100%;
+}
+
+.tableWrapper {
+  border-radius: 8px;
+  box-shadow: var(--mantine-shadow-md);
+}
