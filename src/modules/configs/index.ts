@@ -9,7 +9,7 @@ export interface AppEnvs {
 export const DevelopmentEnvs: AppEnvs = {
   ENV: AppEnv.DEVELOP,
   PUBLIC_URL: process.env["PUBLIC_URL"] || 'http://localhost:3000',
-  URL_MAIN_API: process.env["URL_MAIN_API"] || 'https://api1.binance.com'
+  URL_MAIN_API: process.env["URL_MAIN_API"] || 'https://api3.binance.com'
 }
 
 const envs = DevelopmentEnvs;

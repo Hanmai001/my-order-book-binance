@@ -2,6 +2,7 @@ import { Title, Stack, ScrollArea, Table, Skeleton, useMantineTheme } from "@man
 import classes from './page.module.scss';
 import { FC } from "react";
 import { Order } from "@/modules/order-book/types";
+import { NumberUtils } from "@/share/utils/number.utils";
 
 interface OrderBookTableProps {
   title: string;
@@ -59,9 +60,9 @@ export const OrderBookTable: FC<OrderBookTableProps> = ({ title, data, decimals 
                     style={{ '--percentage': `${calculatedPercentage}%`, '--bg-color': title === 'Buy order (Bid prices)' ? 'rgba(56, 184, 0, 0.2)' : 'rgba(255, 0, 0, 0.2)' }}
                   >
                     <Table.Td c={title === 'Buy order (Bid prices)' ? 'teal' : 'red'} fw={500}>#{index + 1}</Table.Td>
-                    <Table.Td c={title === 'Buy order (Bid prices)' ? 'teal' : 'red'} fw={500}>{Number(item.price).toFixed((Number(decimals)))}</Table.Td>
-                    <Table.Td>{item.quantity}</Table.Td>
-                    <Table.Td>{Number(calculateSum(data.slice(0, index + 1))).toFixed(7)}</Table.Td>
+                    <Table.Td c={title === 'Buy order (Bid prices)' ? 'teal' : 'red'} fw={500}>{NumberUtils.formatNumber(Number(item.price).toFixed((Number(decimals))))}</Table.Td>
+                    <Table.Td>{NumberUtils.formatNumber(item.quantity)}</Table.Td>
+                    <Table.Td>{NumberUtils.formatNumber(Number(calculateSum(data.slice(0, index + 1))).toFixed(7))}</Table.Td>
                   </Table.Tr>
                 })}
               </>
