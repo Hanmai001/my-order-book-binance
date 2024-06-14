@@ -1,11 +1,11 @@
-import { BtcModule } from "@/modules/btc/modules";
+import { BtcModule } from "@/modules/order-book/modules";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const symbol = searchParams.get('symbol') || 'BTCUSDT';
   const limitParam = searchParams.get('limit');
-  const limit = limitParam ? parseInt(limitParam, 10) : 20;
+  const limit = limitParam ? parseInt(limitParam, 10) : 15;
 
   try {
     const response = await BtcModule.fetchOrderBook({

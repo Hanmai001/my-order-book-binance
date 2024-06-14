@@ -1,7 +1,7 @@
 $percentage: 0%;
 $bg-color: red;
 
-//TABLE
+//ORDER-TABLE
 .headTable {
   tr {
     border-bottom: none;
@@ -11,7 +11,7 @@ $bg-color: red;
 .th {
   font-size: 13px;
   position: sticky;
-  z-index: 99;
+  z-index: 10;
   top: 0;
   background-color: var(--mantine-color-white);
 }

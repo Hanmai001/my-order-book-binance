@@ -5,7 +5,7 @@ import { FC, PropsWithChildren } from "react";
 import { AppHeader } from "./app-header";
 import { APP_CONFIG_UI } from "@/modules/configs";
 
-export const AppWrapper: FC<PropsWithChildren> = ({ children }) => {
+const AppWrapper: FC<PropsWithChildren> = ({ children }) => {
   return <AppShell
     header={{ height: 63 }}
   >
@@ -27,3 +27,5 @@ export const AppWrapper: FC<PropsWithChildren> = ({ children }) => {
     </AppShell.Main>
   </AppShell>
 }
+
+export default AppWrapper;

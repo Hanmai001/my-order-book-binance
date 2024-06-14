@@ -1,10 +1,11 @@
 import { Title, Stack, ScrollArea, Table, Skeleton, useMantineTheme } from "@mantine/core";
 import classes from './page.module.scss';
 import { FC } from "react";
+import { Order } from "@/modules/order-book/types";
 
 interface OrderBookTableProps {
   title: string;
-  data: any[];
+  data: Order[];
   decimals: string;
   maxQuantity: number;
 }
@@ -14,14 +15,14 @@ export const OrderBookTable: FC<OrderBookTableProps> = ({ title, data, decimals 
   const calculateTotalQuantity = (orders: any[]): number => {
     let total = 0;
     for (const order of orders) {
-      total += Number(order[1]);
+      total += Number(order.quantity);
     }
     return total;
   };
 
   //Sum money for each price
   const calculateSum = (array: any[]) => {
-    return array.reduce((total, item) => total + Number(item[0]) * Number(item[1]), 0);
+    return array.reduce((total, item) => total + Number(item.price) * Number(item.quantity), 0);
   };
 
   return (
@@ -36,8 +37,9 @@ export const OrderBookTable: FC<OrderBookTableProps> = ({ title, data, decimals 
           classNames={classes}>
           <Table.Thead className={classes.headTable}>
             <Table.Tr>
+              <Table.Th>Order</Table.Th>
               <Table.Th>Price (USDT)</Table.Th>
-              <Table.Th>Size (BCT)</Table.Th>
+              <Table.Th>Quantity (BCT)</Table.Th>
               <Table.Th>Sum (USDT)</Table.Th>
             </Table.Tr>
           </Table.Thead>
@@ -50,14 +52,15 @@ export const OrderBookTable: FC<OrderBookTableProps> = ({ title, data, decimals 
               return <>
                 {data.map((item, index) => {
                   // console.log(maxQuantity)
-                  const calculatedPercentage = item[1] / maxQuantity * 100;
+                  const calculatedPercentage = Number(item.quantity) / maxQuantity * 100;
                   return <Table.Tr
                     className={classes.rowOrder}
                     key={index}
                     style={{ '--percentage': `${calculatedPercentage}%`, '--bg-color': title === 'Buy order (Bid prices)' ? 'rgba(56, 184, 0, 0.2)' : 'rgba(255, 0, 0, 0.2)' }}
                   >
-                    <Table.Td c={title === 'Buy order (Bid prices)' ? 'teal' : 'red'} fw={500}>{Number(item[0]).toFixed((Number(decimals)))}</Table.Td>
-                    <Table.Td>{item[1]}</Table.Td>
+                    <Table.Td c={title === 'Buy order (Bid prices)' ? 'teal' : 'red'} fw={500}>#{index + 1}</Table.Td>
+                    <Table.Td c={title === 'Buy order (Bid prices)' ? 'teal' : 'red'} fw={500}>{Number(item.price).toFixed((Number(decimals)))}</Table.Td>
+                    <Table.Td>{item.quantity}</Table.Td>
                     <Table.Td>{Number(calculateSum(data.slice(0, index + 1))).toFixed(7)}</Table.Td>
                   </Table.Tr>
                 })}
